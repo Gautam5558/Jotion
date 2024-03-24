@@ -4,6 +4,14 @@ import { cn } from "@/lib/utils";
 import React from "react";
 import Logo from "./Logo";
 import { ToggleTheme } from "@/components/ToggleTheme";
+import {
+  SignInButton,
+  SignUpButton,
+  SignedIn,
+  SignedOut,
+  UserButton,
+} from "@clerk/nextjs";
+import { Button } from "@/components/ui/button";
 
 const Navbar = () => {
   const scrolled = useScrollTop();
@@ -17,6 +25,19 @@ const Navbar = () => {
     >
       <Logo />
       <div className="flex w-full items-center justify-between gap-x-2 md:ml-auto md:justify-end">
+        <SignedOut>
+          <SignInButton mode="modal">
+            <Button variant="ghost" size="sm">
+              LogIn
+            </Button>
+          </SignInButton>
+          <SignUpButton mode="modal">
+            <Button size="sm">Get Jotion Free</Button>
+          </SignUpButton>
+        </SignedOut>
+        <SignedIn>
+          <UserButton />
+        </SignedIn>
         <ToggleTheme />
       </div>
     </div>
