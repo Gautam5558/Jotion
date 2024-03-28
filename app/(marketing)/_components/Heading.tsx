@@ -1,11 +1,12 @@
-import { Button } from "@/components/ui/button";
-import { ArrowRight } from "lucide-react";
-import Link from "next/link";
 import React from "react";
+import EnterJotion from "./EnterJotion";
+import { auth } from "@clerk/nextjs";
 
 const Heading = () => {
+  const { userId } = auth();
+
   return (
-    <div className="flex max-w-3xl flex-col gap-4">
+    <div className="flex max-w-3xl flex-col items-center gap-4">
       <h1 className="text-3xl font-bold sm:text-5xl md:text-6xl">
         Your Ideas, Documents, & Plans. Unified. welcome to{" "}
         <span className="underline">Jotion</span>
@@ -14,11 +15,7 @@ const Heading = () => {
         Jotion is the connected workspace where <br />
         better, faster work happens.
       </h3>
-      <Link href="/sign-in">
-        <Button>
-          Enter Jotion <ArrowRight className="ml-2 size-4" />{" "}
-        </Button>
-      </Link>
+      <EnterJotion userId={userId} />
     </div>
   );
 };
