@@ -1,7 +1,8 @@
 import React from "react";
+import CreateNote from "./_components/CreateNote";
 
 const Documents = () => {
-  return <div>Documents</div>;
+  return <CreateNote />;
 };
 
 export default Documents;

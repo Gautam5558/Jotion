@@ -4,6 +4,7 @@ import "./globals.css";
 import React from "react";
 import { ThemeProvider } from "@/components/providers/ThemeProvider";
 import { ClerkProvider } from "@clerk/nextjs";
+import { Toaster } from "sonner";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -33,17 +34,18 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <ClerkProvider>
-      <body className={inter.className}>
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="system"
-          enableSystem
-          disableTransitionOnChange
-          storageKey="jotion-theme-3" // storage key can be anything, it ust has to be any unique value
-        >
-          {children}
-        </ThemeProvider>
-      </body>
+        <body className={inter.className}>
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="system"
+            enableSystem
+            disableTransitionOnChange
+            storageKey="jotion-theme-3" // storage key can be anything, it ust has to be any unique value
+          >
+            {children}
+          </ThemeProvider>
+          <Toaster position="bottom-center" />
+        </body>
       </ClerkProvider>
     </html>
   );

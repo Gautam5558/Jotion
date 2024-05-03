@@ -1,11 +1,28 @@
 "use client";
 import { cn } from "@/lib/utils";
-import { ChevronsLeft, MenuIcon } from "lucide-react";
+import {
+  ChevronsLeft,
+  MenuIcon,
+  PlusCircle,
+  Search,
+  Settings,
+} from "lucide-react";
 import { usePathname } from "next/navigation";
 import React, { ElementRef, useEffect, useRef, useState } from "react";
 import { useMediaQuery } from "usehooks-ts";
+import UserItem from "./UserItem";
+import Item from "./Item";
+import { createNote } from "@/lib/actions/document.action";
+import { toast } from "sonner";
+import DocumentList from "./DocumentList";
 
-const Navigation = () => {
+const Navigation = ({
+  notes,
+  userId,
+}: {
+  notes: any;
+  userId: string | undefined;
+}) => {
   const pathname = usePathname();
   const [isMounted, setIsMounted] = useState(false);
   // It return a boolean
@@ -106,6 +123,11 @@ const Navigation = () => {
     document.removeEventListener("mouseup", handleMouseUp);
   };
 
+  const handleClick = async () => {
+    await createNote({ userId, path: pathname });
+    toast.success("New note created");
+  };
+
   return (
     <>
       <aside
@@ -129,10 +151,18 @@ const Navigation = () => {
           <ChevronsLeft className="size-6" />
         </div>
         <div>
-          <p>Action Items</p>
-        </div>
-        <div className="mt-4">
-          <p>Documents</p>
+          <UserItem />
+          <Item label="Search" icon={Search} isSearch handleClick={() => {}} />
+          <Item label="Settings" icon={Settings} handleClick={() => {}} />
+          <Item
+            icon={PlusCircle}
+            label="New Page"
+            userId={userId}
+            handleClick={handleClick}
+          />
+          <div className="mt-4">
+            <DocumentList userId={userId} data={notes} />
+          </div>
         </div>
         <div
           onMouseDown={(e) => {
